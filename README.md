@@ -2,7 +2,7 @@
 
 A collection(-ish) of vaguely dnd related code projects.
 
-The repository contains on Visual Studio solution, dnd-madness.sln, that hosts
+The repository contains on Visual Studio solution, [dnd-madness.sln](dnd-madness/dnd-madness.sln), that hosts
 the following projects:
 
 ## Dice :game_die: Roller 
