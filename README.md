@@ -1,5 +1,7 @@
 # DnD Madness
 
+[![MSBuild](https://github.com/ChrisJanes/dnd-madness/actions/workflows/msbuild.yml/badge.svg)](https://github.com/ChrisJanes/dnd-madness/actions/workflows/msbuild.yml)
+
 A collection(-ish) of vaguely dnd related code projects.
 
 The repository contains on Visual Studio solution, [dnd-madness.sln](dnd-madness/dnd-madness.sln), that hosts
