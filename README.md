@@ -1,5 +1,5 @@
-# Dice Roller:
-Provides functionality to "roll" user specified numbers of dice
+# Dice :game-die: Roller 
+Provides functionality to "roll" user specified numbers of :game-die:
 * user enters 2d6
  * application returns "1 and 3"
 * user enters 3d10, 2d6
