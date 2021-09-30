@@ -1,4 +1,11 @@
-# Dice :game_die: Roller 
+# DnD Madness
+
+A collection(-ish) of vaguely dnd related code projects.
+
+The repository contains on Visual Studio solution, dnd-madness.sln, that hosts
+the following projects:
+
+## Dice :game_die: Roller 
 Provides functionality to "roll" user specified numbers of :game_die:
 * user enters 2d6
 	* application returns "1 and 3"
