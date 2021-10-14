@@ -139,7 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Dice.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\UserInput.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="headers\Dice.h" />
+    <ClInclude Include="headers\UserInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,117 +2,12 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <random>
 
-// Die represents a single die - it stores the 
-// face value and any associated modifiers.
-class Die
-{
-public:
-	Die(int max, int mod) : max_number(max), modifier(mod) {
-		mt = std::mt19937((std::random_device())());
-		dist.param(std::uniform_int_distribution<>::param_type(1, max_number));
-	}
-
-	int Roll() {
-		return dist(mt) + modifier;
-	}
-
-private:
-
-	int max_number;
-	int modifier = 0;
-
-	std::mt19937 mt;
-	std::uniform_int_distribution<int> dist;
-};
-
-// Dice is a set of die - this represents the multitude
-// of dice rolled in one go.
-struct Dice
-{
-	std::vector<Die> dice;
-
-	void AddDie(int max, int mod = 0)
-	{
-		// you can't roll a 0 sided dice, so stop that from happening.
-		if (max == 0) max = 1;
-		dice.push_back(Die( max, mod ));
-	}
-
-	void RollAll() {
-		for (Die die : dice)
-		{
-			std::cout << die.Roll() << '\n';
-		}
-	}
-};
-
-void input_handler(std::vector<int> &tokens)
-{
-	std::string input;
-
-	// handle user input
-	std::cout << '>';
-	std::cin >> input;
-
-	if (input == "q")
-	{
-		tokens.push_back(-1);
-		return;
-	}
-
-	// convert to lower case, just in case we get 1D10 (or whatever)
-	// this iterates over each character in the input string and runs
-	// std::tolower against it.
-	std::transform(input.begin(), input.end(), input.begin(),
-		[](unsigned char c) {return std::tolower(c); });
-
-	// we want to break apart the input string to try 
-	// and identify the component parts of it
-	// the first number is the number of dice to roll
-	// then we have a d, followed by the number of sides on the dice
-	// "2d6", "1d10" etc. 
-	// TODO: handle input that specifies several different dice "1d10 2d10"
-	// TODO: handle input that adds modifiers to dice rolls "d10+3"
-	// TODO: handle partial results (keep best x) "4d10b3"
-
-	// split the string at the d, if there is no d, we've got bad input.
-	char delimiter = 'd';
-	char split = ' ';
-	size_t pos = 0;
-
-	// this loop may be redundant - but we'll refactor it later
-	while ((pos = input.find(delimiter)) != std::string::npos) {
-		std::string token = input.substr(0, pos);
-		
-		// if the token has no size, there was no number present
-		// so we're probably dealing with a straight "dy" input
-		// and so we can set the number value to 1.
-		if (token.size() > 0)
-		{
-			// std::stoi lets us convert a string to an integer
-			// if it doesn't get an integer, it throws an exception
-			// we handle that in main (for now)
-			tokens.push_back(std::stoi(token));
-		}
-		else
-		{
-			tokens.push_back(1);
-		}
-		// we erase everything up to and including the "d"
-		input.erase(0, pos + 1);
-	}
-
-	// the final part of the input (after the final d) is left behind, so we grab it here.
-	tokens.push_back(std::stoi(input));
-}
+#include "../headers/Dice.h"
+#include "../headers/UserInput.h"
 
 int main() {
 	std::cout << "dice roller, part of dnd madness\n\n";
-
-	// seed rand so we get relatively random values back out
-	srand(time(NULL));
 
 	std::cout << "enter the value of dice you want rolled in the format xdy\n"
 		<< "where x is the number of dice and y is the number of sides.\n"
@@ -127,7 +22,7 @@ int main() {
 		{
 			input_handler(tokens);
 		}
-		catch (std::exception& e)
+		catch (std::exception&)
 		{
 			// for now, if input_handler throws an exception, we just bail completely
 			std::cout << "invalid input provided\n";
