@@ -44,6 +44,12 @@ void input_handler(std::vector<int> &tokens)
 	std::cout << '>';
 	std::cin >> input;
 
+	if (input == "q")
+	{
+		tokens.push_back(-1);
+		return;
+	}
+
 	// convert to lower case, just in case we get 1D10 (or whatever)
 	// this iterates over each character in the input string and runs
 	// std::tolower against it.
@@ -93,35 +99,42 @@ void input_handler(std::vector<int> &tokens)
 int main() {
 	std::cout << "dice roller, part of dnd madness\n\n";
 
-	std::vector<int> tokens;
-
-	try
-	{
-		std::cout << "enter the value of dice you want rolled in the format xdy\n"
-			<< "where x is the number of dice and y is the number of sides.\n"
-			<< "e.g. 1d10 for one 10 sided die or 2d20 for two twenty sided dice.\n";
-		input_handler(tokens);
-	}
-	catch(std::exception &e)
-	{
-		// for now, if input_handler throws an exception, we just bail completely
-		std::cout << "invalid input provided\n";
-		return -1;
-	}
-
-	Dice dice;
-
-	for(int i = 0; i < tokens[0]; ++i)
-		dice.AddDie(tokens[1]);
-
-	// getting here means we've got at least 2 integers stored in tokens.
-	// in the short term, we'll only handle the first 2
-	std::cout << "rolling " << tokens[0] << " d" << tokens[1] << '\n';
-
 	// seed rand so we get relatively random values back out
 	srand(time(NULL));
 
-	dice.RollAll();
+	std::cout << "enter the value of dice you want rolled in the format xdy\n"
+		<< "where x is the number of dice and y is the number of sides.\n"
+		<< "e.g. 1d10 for one 10 sided die or 2d20 for two twenty sided dice.\n"
+		<< "or q to quit\n";
+
+	while (true)
+	{
+		std::vector<int> tokens;
+
+		try
+		{
+			input_handler(tokens);
+		}
+		catch (std::exception& e)
+		{
+			// for now, if input_handler throws an exception, we just bail completely
+			std::cout << "invalid input provided\n";
+			return -1;
+		}
+
+		if (tokens[0] == -1) break;
+
+		Dice dice;
+
+		for (int i = 0; i < tokens[0]; ++i)
+			dice.AddDie(tokens[1]);
+
+		// getting here means we've got at least 2 integers stored in tokens.
+		// in the short term, we'll only handle the first 2
+		std::cout << "rolling " << tokens[0] << " d" << tokens[1] << '\n';
+
+		dice.RollAll();
+	}
 
 	return 0;
 }
