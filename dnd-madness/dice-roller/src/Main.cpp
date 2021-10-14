@@ -3,9 +3,8 @@
 #include <vector>
 #include <algorithm>
 
-int main() {
-	std::cout << "dice roller, part of dnd madness\n";
-
+void input_handler(std::vector<int> &tokens)
+{
 	std::string input;
 
 	// handle user input
@@ -25,7 +24,6 @@ int main() {
 	// split the string at the d, if there is no d, we've got bad input.
 	char delimiter = 'd';
 	size_t pos = 0;
-	std::vector<int> tokens;
 
 	// this loop may be redundant - but we'll refactor it later
 	while ((pos = input.find(delimiter)) != std::string::npos) {
@@ -40,8 +38,34 @@ int main() {
 
 	// the final part of the input (after the final d) is left behind, so we grab it here.
 	tokens.push_back(std::stoi(input));
+}
 
-	std::cout << tokens[0] << ' ' << tokens[1];
+int main() {
+	std::cout << "dice roller, part of dnd madness\n";
+
+	std::vector<int> tokens;
+
+	try
+	{
+		input_handler(tokens);
+	}
+	catch(std::exception &e)
+	{
+		// for now, if input_handler throws an exception, we just bail completely
+		std::cout << "invalid input provided\n";
+		return -1;
+	}
+
+	// getting here means we've got at least 2 integers stored in token.
+	// in the short term, we'll only handle the first 2
+	std::cout << "rolling " << tokens[0] << " d" << tokens[1] << '\n';
+
+	srand(time(NULL));
+
+	for (int i = 0; i < tokens[0]; ++i)
+	{
+		std::cout << "die " << i + 1 << " rolls: " << rand() % tokens[1] << '\n';
+	}
 
 	return 0;
 }
