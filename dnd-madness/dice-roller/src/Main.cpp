@@ -2,17 +2,29 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <random>
 
 // Die represents a single die - it stores the 
 // face value and any associated modifiers.
-struct Die
+class Die
 {
+public:
+	Die(int max, int mod) : max_number(max), modifier(mod) {
+		mt = std::mt19937((std::random_device())());
+		dist.param(std::uniform_int_distribution<>::param_type(1, max_number));
+	}
+
+	int Roll() {
+		return dist(mt) + modifier;
+	}
+
+private:
+
 	int max_number;
 	int modifier = 0;
 
-	int Roll() {
-		return 1 + (rand() % max_number) + modifier;
-	}
+	std::mt19937 mt;
+	std::uniform_int_distribution<int> dist;
 };
 
 // Dice is a set of die - this represents the multitude
@@ -25,7 +37,7 @@ struct Dice
 	{
 		// you can't roll a 0 sided dice, so stop that from happening.
 		if (max == 0) max = 1;
-		dice.emplace_back(Die{ max, mod });
+		dice.push_back(Die( max, mod ));
 	}
 
 	void RollAll() {
