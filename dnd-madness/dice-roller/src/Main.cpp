@@ -3,6 +3,37 @@
 #include <vector>
 #include <algorithm>
 
+// Die represents a single die - it stores the 
+// face value and any associated modifiers.
+struct Die
+{
+	int max_number;
+	int modifier = 0;
+
+	int Roll() {
+		return (rand() % max_number) + modifier;
+	}
+};
+
+// Dice is a set of die - this represents the multitude
+// of dice rolled in one go.
+struct Dice
+{
+	std::vector<Die> dice;
+
+	void AddDie(int max, int mod = 0)
+	{
+		dice.emplace_back(Die{ max, mod });
+	}
+
+	void RollAll() {
+		for (Die die : dice)
+		{
+			std::cout << die.Roll() << '\n';
+		}
+	}
+};
+
 void input_handler(std::vector<int> &tokens)
 {
 	std::string input;
@@ -65,6 +96,11 @@ int main() {
 		return -1;
 	}
 
+	Dice dice;
+
+	for(int i = 0; i < tokens[0]; ++i)
+		dice.AddDie(tokens[1]);
+
 	// getting here means we've got at least 2 integers stored in tokens.
 	// in the short term, we'll only handle the first 2
 	std::cout << "rolling " << tokens[0] << " d" << tokens[1] << '\n';
@@ -72,11 +108,7 @@ int main() {
 	// seed rand so we get relatively random values back out
 	srand(time(NULL));
 
-	for (int i = 0; i < tokens[0]; ++i)
-	{
-		// use rand() to generate a random number - using the mod operator lets us restrict the max result to the dice value
-		std::cout << "die " << i + 1 << " rolls: " << rand() % tokens[1] << '\n';
-	}
+	dice.RollAll();
 
 	return 0;
 }
