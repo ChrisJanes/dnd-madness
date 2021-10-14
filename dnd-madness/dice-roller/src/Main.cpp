@@ -11,7 +11,7 @@ struct Die
 	int modifier = 0;
 
 	int Roll() {
-		return (rand() % max_number) + modifier;
+		return 1 + (rand() % max_number) + modifier;
 	}
 };
 
@@ -23,6 +23,8 @@ struct Dice
 
 	void AddDie(int max, int mod = 0)
 	{
+		// you can't roll a 0 sided dice, so stop that from happening.
+		if (max == 0) max = 1;
 		dice.emplace_back(Die{ max, mod });
 	}
 
@@ -53,22 +55,33 @@ void input_handler(std::vector<int> &tokens)
 	// the first number is the number of dice to roll
 	// then we have a d, followed by the number of sides on the dice
 	// "2d6", "1d10" etc. 
-	// TODO: handle input that just specifies a single die with "d10"
 	// TODO: handle input that specifies several different dice "1d10 2d10"
 	// TODO: handle input that adds modifiers to dice rolls "d10+3"
-	// TODO: handle partiel results (keep best x) "4d10b3"
+	// TODO: handle partial results (keep best x) "4d10b3"
 
 	// split the string at the d, if there is no d, we've got bad input.
 	char delimiter = 'd';
+	char split = ' ';
 	size_t pos = 0;
 
 	// this loop may be redundant - but we'll refactor it later
 	while ((pos = input.find(delimiter)) != std::string::npos) {
 		std::string token = input.substr(0, pos);
-		// std::stoi lets us convert a string to an integer
-		// if it doesn't get an integer, it throws an exception
-		// we handle that in main (for now)
-		tokens.push_back(std::stoi(token));
+		
+		// if the token has no size, there was no number present
+		// so we're probably dealing with a straight "dy" input
+		// and so we can set the number value to 1.
+		if (token.size() > 0)
+		{
+			// std::stoi lets us convert a string to an integer
+			// if it doesn't get an integer, it throws an exception
+			// we handle that in main (for now)
+			tokens.push_back(std::stoi(token));
+		}
+		else
+		{
+			tokens.push_back(1);
+		}
 		// we erase everything up to and including the "d"
 		input.erase(0, pos + 1);
 	}
