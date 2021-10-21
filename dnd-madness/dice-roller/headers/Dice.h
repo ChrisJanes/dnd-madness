@@ -58,7 +58,6 @@ namespace DieRoller
 	public:
 		void AddDice(int count, int max, int mod = 0, int best = 0);
 		std::vector<DiceRoll> RollAll();
-		std::vector<DiceRoll> RollSpecific(int faceLimit);
 
 	private:
 		std::vector<DiceSet> dice;

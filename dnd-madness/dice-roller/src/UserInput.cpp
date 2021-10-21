@@ -92,6 +92,8 @@ namespace DieRoller
 		if ((pos = input.find(bestSymbol)) != std::string::npos)
 		{
 			best = std::atoi(input.substr(pos + 1, input.size()).c_str());
+			if (best > tokens[0])
+				best = tokens[0] - 1;
 		}
 
 		// the final part of the input (after the final d) is left behind, so we grab it here.
