@@ -33,7 +33,6 @@ namespace DieRoller
 		// then we have a d, followed by the number of sides on the dice
 		// "2d6", "1d10" etc. 
 		// TODO: handle input that specifies several different dice "1d10 2d10"
-		// TODO: handle partial results (keep best x) "4d10b3"
 
 		// split the string at the d, if there is no d, we've got bad input.
 		const char delimiter = 'd';
@@ -76,19 +75,29 @@ namespace DieRoller
 		{
 			mod = input.substr(pos + 1, input.size());
 			modifier = std::atoi(mod.c_str());
-			input.erase(pos, input.size());
+			//input.erase(pos, input.size());
 		}
 
 		if ((pos = input.find(sub)) != std::string::npos)
 		{
 			mod = input.substr(pos + 1, input.size());
 			modifier = -std::atoi(mod.c_str());
-			input.erase(pos, input.size());
+			//input.erase(pos, input.size());
+		}
+
+		const char bestSymbol = 'b';
+
+		int best = 0;
+
+		if ((pos = input.find(bestSymbol)) != std::string::npos)
+		{
+			best = std::atoi(input.substr(pos + 1, input.size()).c_str());
 		}
 
 		// the final part of the input (after the final d) is left behind, so we grab it here.
 		tokens.push_back(std::stoi(input));
 
 		tokens.push_back(modifier);
+		tokens.push_back(best);
 	}
 }

@@ -8,9 +8,10 @@ namespace DieRoller
 {
 	struct DiceRoll {
 		std::vector<int> results;
-		int faces = 2;
-		int total = 0;
-		int mod = 0;
+		int faces{ 2 };
+		int total{ 0 };
+		int mod{ 0 };
+		int best{ 0 };
 	};
 
 	class Die;
@@ -18,6 +19,7 @@ namespace DieRoller
 	struct DiceSet {
 		std::vector<Die> dice;
 		int modifier;
+		int best;
 	};
 
 	// Die represents a single die - it stores the 
@@ -54,7 +56,7 @@ namespace DieRoller
 	class Dice
 	{
 	public:
-		void AddDice(int count, int max, int mod = 0);
+		void AddDice(int count, int max, int mod = 0, int best = 0);
 		std::vector<DiceRoll> RollAll();
 		std::vector<DiceRoll> RollSpecific(int faceLimit);
 

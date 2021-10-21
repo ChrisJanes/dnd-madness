@@ -9,13 +9,22 @@ namespace DieRoller
 		return dist(mt);
 	}
 
-	void Dice::AddDice(int count, int max, int mod) {
+	void Dice::AddDice(int count, int max, int mod, int best) {
 		// you can't roll a 0 sided dice, so stop that from happening.
 		if (max == 0) max = 2;
+
 		DiceSet set;
+
 		for (int i = 0; i < count; ++i)
 			set.dice.push_back(Die(max));
 		
+		// this might be an error that should be caught
+		// at the input stage - but if the best
+		// is higher than the number of dice, restrict it.
+		if (best >= count)
+			best = count - 1;
+
+		set.best = best;
 		set.modifier = mod;
 		dice.push_back(set);
 	}
@@ -32,6 +41,16 @@ namespace DieRoller
 			{
 				roll.results.push_back({ die.Roll()});
 				roll.faces = die.GetSides();
+			}
+
+			// remove the "worst" results if a best is set.
+			if (diceSet.best > 0)
+			{
+				std::vector<int> sorted(roll.results.size());
+				std::partial_sort_copy(roll.results.begin(), roll.results.end(), sorted.begin(), sorted.end(), std::greater<int>());
+				int leave = diceSet.dice.size() - diceSet.best;
+				sorted.erase(sorted.end() - leave, sorted.end());
+				roll.results = sorted;
 			}
 
 			for (int i = 0; i < roll.results.size(); ++i)
