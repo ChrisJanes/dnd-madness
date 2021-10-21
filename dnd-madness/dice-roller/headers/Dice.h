@@ -34,8 +34,8 @@ namespace DieRoller
 			dist.param(std::uniform_int_distribution<>::param_type(1, max_number));
 		}
 
-		int const Roll();
-		int GetSides() const { return max_number; };
+		[[nodiscard]] int const Roll();
+		[[nodiscard]] int GetSides() const { return max_number; };
 
 	private:
 
@@ -57,7 +57,7 @@ namespace DieRoller
 	{
 	public:
 		void AddDice(int count, int max, int mod = 0, int best = 0);
-		std::vector<DiceRoll> RollAll();
+		[[nodiscard]] std::vector<DiceRoll> RollAll();
 
 	private:
 		std::vector<DiceSet> dice;

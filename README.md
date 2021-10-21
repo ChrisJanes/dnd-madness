@@ -15,3 +15,4 @@ Provides functionality to "roll" user specified numbers of :game_die:
 	* application returns "1, 5 and 10 and 2 and 4".
 * allow for modifiers (2d6+4)
 * partial results (4d6, keep best 3 - 4d6b3)
+* specify a re-roll value that will trigger another roll if not met (4d6r2 would re-roll all dice that showed 2 or less).

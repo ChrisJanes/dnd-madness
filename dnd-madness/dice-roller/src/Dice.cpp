@@ -58,7 +58,7 @@ namespace DieRoller
 			}
 
 			// tot up the overall result of the set
-			for (int i = 0; i < roll.results.size(); ++i)
+			for (size_t i = 0; i < roll.results.size(); ++i)
 			{
 				roll.total += roll.results[i];
 			}

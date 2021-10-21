@@ -19,7 +19,7 @@ int main()
 
 	while (true)
 	{
-		std::vector<int> tokens;
+		std::vector<DiceTokens> tokens;
 
 		try
 		{
@@ -33,22 +33,21 @@ int main()
 			continue;
 		}
 
-		if (tokens[0] == -1) break;
-
-		if (tokens.size() < 2)
-		{
-			std::cout << "error handling input, please try again.\n";
-			continue;
-		}
+		if (tokens[0].count == -1) break;
 
 		Dice dice;
 
-		// getting here means we've got at least 2 integers stored in tokens.
-		// in the short term, we'll only handle the first 2
-		// TODO: Allow for different faced die in one roll
-		dice.AddDice(tokens[0], tokens[1], tokens[2], tokens[3]);			
+		// add all the dice found during input handling
+		for (const DiceTokens& input : tokens)
+		{
+			// getting here means we've got at least 2 integers stored in tokens.
+			// in the short term, we'll only handle the first 2
+			// TODO: Allow for different faced die in one roll
+			dice.AddDice(input.count, input.face, input.modifier, input.best);
+		}
 
 		std::vector<DiceRoll> rolls = dice.RollAll();
+		dice.RollAll();
 
 		for (DiceRoll roll : rolls)
 		{
