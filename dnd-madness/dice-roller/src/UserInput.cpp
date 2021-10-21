@@ -37,8 +37,8 @@ namespace DieRoller
 		// TODO: handle partial results (keep best x) "4d10b3"
 
 		// split the string at the d, if there is no d, we've got bad input.
-		char delimiter = 'd';
-		char split = ' ';
+		const char delimiter = 'd';
+		const char split = ' ';
 		size_t pos = 0;
 
 		// this loop may be redundant - but we'll refactor it later
