@@ -6,25 +6,37 @@
 
 namespace DieRoller
 {
+	struct DiceRoll {
+		std::vector<int> results;
+		int faces = 2;
+		int total = 0;
+	};
+
+	class Die;
+
+	struct DiceSet {
+		std::vector<Die> dice;
+		int modifier;
+	};
+
 	// Die represents a single die - it stores the 
 	// face value and any associated modifiers.
 	class Die
 	{
 	public:
-		Die(int max, int mod) : max_number(max), modifier(mod) {
+		Die(int max) : max_number(max) {
 			// we seed the mersenne twister with random data from the OS / hardware through random_device.
 			mt = std::mt19937((std::random_device())());
 			// then we set the min and max values for the distribution
 			dist.param(std::uniform_int_distribution<>::param_type(1, max_number));
 		}
 
-		int Roll();
+		int const Roll();
 		int GetSides() const { return max_number; };
 
 	private:
 
 		int max_number;
-		int modifier = 0;
 
 		// used to generated pseudo-random numbers
 		// mt19937 is a mersenne twister generator
@@ -41,11 +53,11 @@ namespace DieRoller
 	class Dice
 	{
 	public:
-		void AddDie(int max, int mod = 0);
-		std::vector<int> RollAll();
-		std::vector<int> RollSpecific(int faceLimit);
+		void AddDice(int count, int max, int mod = 0);
+		std::vector<DiceRoll> RollAll();
+		std::vector<DiceRoll> RollSpecific(int faceLimit);
 
 	private:
-		std::vector<Die> dice;
+		std::vector<DiceSet> dice;
 	};
 }

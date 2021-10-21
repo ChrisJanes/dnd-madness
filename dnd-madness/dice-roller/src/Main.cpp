@@ -22,31 +22,40 @@ int main() {
 
 		try
 		{
+			// do we move this functionality out to Dice instead?
 			input_handler(tokens);
 		}
 		catch (std::exception&)
 		{
 			// for now, if input_handler throws an exception, we just bail completely
 			std::cout << "invalid input provided\n";
-			return -1;
+			continue;
 		}
 
 		if (tokens[0] == -1) break;
 
-		Dice dice;
+		if (tokens.size() < 2)
+		{
+			std::cout << "error handling input, please try again.\n";
+			continue;
+		}
 
-		for (int i = 0; i < tokens[0]; ++i)
-			dice.AddDie(tokens[1]);
+		Dice dice;
 
 		// getting here means we've got at least 2 integers stored in tokens.
 		// in the short term, we'll only handle the first 2
-		std::cout << "rolling " << tokens[0] << " d" << tokens[1] << '\n';
+		// TODO: Allow for different faced die in one roll
+		dice.AddDice(tokens[0], tokens[1]);			
 
-		std::vector<int> results = dice.RollAll();
+		std::vector<DiceRoll> rolls = dice.RollAll();
 
-		for (int result : results)
+		for (DiceRoll roll : rolls)
 		{
-			std::cout << result << '\n';
+			std::cout << "roll total: " << roll.total << '\n';
+			for (int result : roll.results)
+			{
+				std::cout << 'd' << roll.faces << ": " << result << '\n';
+			}
 		}
 	}
 
