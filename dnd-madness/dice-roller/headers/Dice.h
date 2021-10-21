@@ -10,6 +10,7 @@ namespace DieRoller
 		std::vector<int> results;
 		int faces = 2;
 		int total = 0;
+		int mod = 0;
 	};
 
 	class Die;

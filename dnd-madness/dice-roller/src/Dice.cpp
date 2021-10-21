@@ -26,6 +26,8 @@ namespace DieRoller
 		{
 			DiceRoll roll;
 
+			roll.mod = diceSet.modifier;
+
 			for (Die die : diceSet.dice)
 			{
 				roll.results.push_back({ die.Roll()});

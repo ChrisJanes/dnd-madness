@@ -33,7 +33,6 @@ namespace DieRoller
 		// then we have a d, followed by the number of sides on the dice
 		// "2d6", "1d10" etc. 
 		// TODO: handle input that specifies several different dice "1d10 2d10"
-		// TODO: handle input that adds modifiers to dice rolls "d10+3"
 		// TODO: handle partial results (keep best x) "4d10b3"
 
 		// split the string at the d, if there is no d, we've got bad input.
@@ -63,7 +62,33 @@ namespace DieRoller
 			input.erase(0, pos + 1);
 		}
 
+		// check for a modifier - at this point, we might have
+		// something like "12+4" or "6-2"
+		const char plus = '+';
+		const char sub = '-';
+		int modifier = 0;
+		std::string mod;
+
+		// this makes the assumption that there is nothing after the modifier text
+		// which is definitely bad form as we're becoming more
+		// explicit with regards to how we allow a user to input values.
+		if ((pos = input.find(plus)) != std::string::npos)
+		{
+			mod = input.substr(pos + 1, input.size());
+			modifier = std::atoi(mod.c_str());
+			input.erase(pos, input.size());
+		}
+
+		if ((pos = input.find(sub)) != std::string::npos)
+		{
+			mod = input.substr(pos + 1, input.size());
+			modifier = -std::atoi(mod.c_str());
+			input.erase(pos, input.size());
+		}
+
 		// the final part of the input (after the final d) is left behind, so we grab it here.
 		tokens.push_back(std::stoi(input));
+
+		tokens.push_back(modifier);
 	}
 }
