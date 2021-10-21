@@ -47,7 +47,6 @@ int main()
 		}
 
 		std::vector<DiceRoll> rolls = dice.RollAll();
-		dice.RollAll();
 
 		for (DiceRoll roll : rolls)
 		{
