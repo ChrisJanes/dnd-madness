@@ -2,4 +2,7 @@
 
 #include <vector>
 
-void input_handler(std::vector<int>& tokens);
+namespace DieRoller 
+{
+	void input_handler(std::vector<int>& tokens);
+}

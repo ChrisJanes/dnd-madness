@@ -6,6 +6,8 @@
 #include "../headers/Dice.h"
 #include "../headers/UserInput.h"
 
+using namespace DieRoller;
+
 int main() {
 	std::cout << "dice roller, part of dnd madness\n\n";
 
@@ -40,7 +42,12 @@ int main() {
 		// in the short term, we'll only handle the first 2
 		std::cout << "rolling " << tokens[0] << " d" << tokens[1] << '\n';
 
-		dice.RollAll();
+		std::vector<int> results = dice.RollAll();
+
+		for (int result : results)
+		{
+			std::cout << result << '\n';
+		}
 	}
 
 	return 0;
