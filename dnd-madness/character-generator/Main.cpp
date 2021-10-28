@@ -1,15 +1,24 @@
 #include <iostream>
 
-#include "../dice-roller/headers/Dice.h"
-
-using namespace DieRoller;
+#include "headers/Character.h"
+#include "headers/Classes.h"
+#include "headers/Race.h"
 
 int main()
 {
-	Dice dice;
-	dice.AddDice(1, 6);
+	std::string name;
+	std::cout << "Enter the character name\n> ";
+	std::cin >> name;
 
-	std::cout << dice.RollAll().size();
+	std::cout << "Enter the character race\n> ";
+	std::string race;
+	std::cin >> race;
+
+	CharacterGenerator::CharacterClass classDetails{ "Barbarian", 12 };
+
+	CharacterGenerator::Character character(name, classDetails, CharacterGenerator::Race(race));
+
+	std::cout << character;
 
 	return 0;
 }
