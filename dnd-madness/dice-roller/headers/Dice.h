@@ -56,6 +56,11 @@ namespace DieRoller
 	class Dice
 	{
 	public:
+		Dice() {};
+		Dice(int count, int max, int mod = 0, int best = 0)
+		{
+			AddDice(count, max, mod, best);
+		}
 		void AddDice(int count, int max, int mod = 0, int best = 0);
 		[[nodiscard]] std::vector<DiceRoll> RollAll();
 
