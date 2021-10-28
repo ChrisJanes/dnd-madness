@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Dice.h"
+#include "../dice-roller/headers/Dice.h"
 
 using namespace DieRoller;
 
