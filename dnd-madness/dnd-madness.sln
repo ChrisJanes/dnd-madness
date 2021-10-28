@@ -9,26 +9,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "character-generator", "char
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{90D9B46A-A066-4058-9575-52184AD9DC1C}.Debug|x64.ActiveCfg = Debug|x64
-		{90D9B46A-A066-4058-9575-52184AD9DC1C}.Debug|x64.Build.0 = Debug|x64
 		{90D9B46A-A066-4058-9575-52184AD9DC1C}.Debug|x86.ActiveCfg = Debug|Win32
 		{90D9B46A-A066-4058-9575-52184AD9DC1C}.Debug|x86.Build.0 = Debug|Win32
-		{90D9B46A-A066-4058-9575-52184AD9DC1C}.Release|x64.ActiveCfg = Release|x64
-		{90D9B46A-A066-4058-9575-52184AD9DC1C}.Release|x64.Build.0 = Release|x64
 		{90D9B46A-A066-4058-9575-52184AD9DC1C}.Release|x86.ActiveCfg = Release|Win32
 		{90D9B46A-A066-4058-9575-52184AD9DC1C}.Release|x86.Build.0 = Release|Win32
-		{303E2F97-BC32-4284-B168-819FC6D56866}.Debug|x64.ActiveCfg = Debug|x64
-		{303E2F97-BC32-4284-B168-819FC6D56866}.Debug|x64.Build.0 = Debug|x64
 		{303E2F97-BC32-4284-B168-819FC6D56866}.Debug|x86.ActiveCfg = Debug|Win32
 		{303E2F97-BC32-4284-B168-819FC6D56866}.Debug|x86.Build.0 = Debug|Win32
-		{303E2F97-BC32-4284-B168-819FC6D56866}.Release|x64.ActiveCfg = Release|x64
-		{303E2F97-BC32-4284-B168-819FC6D56866}.Release|x64.Build.0 = Release|x64
 		{303E2F97-BC32-4284-B168-819FC6D56866}.Release|x86.ActiveCfg = Release|Win32
 		{303E2F97-BC32-4284-B168-819FC6D56866}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
